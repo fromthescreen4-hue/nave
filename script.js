@@ -14,3 +14,19 @@ function loadPage(page) {
 document.addEventListener("DOMContentLoaded", () => {
   loadPage('today.html');
 });
+
+
+function openSidebar() {
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('sidebar-overlay');
+  sidebar.classList.remove('-translate-x-full');
+  overlay.classList.remove('hidden');
+}
+
+function closeSidebar() {
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('sidebar-overlay');
+  sidebar.classList.add('-translate-x-full');
+  overlay.classList.add('hidden');
+}
+
