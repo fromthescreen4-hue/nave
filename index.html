@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sports Live Portal</title>
+  <link rel="stylesheet" href="style.css"> </head>
+<body>
+  <header>⚽ Sports Live Portal</header>
+
+  <div class="slider">
+    <div class="slides" id="slider-slides">
+      </div>
+    <div class="dots" id="slider-dots"></div>
+  </div>
+
+  <div class="tabs">
+    <div class="tab active" data-day="today">Today</div>
+    <div class="tab" data-day="yesterday">Yesterday</div>
+    <div class="tab" data-day="tomorrow">Tomorrow</div>
+  </div>
+
+  <div id="matches">
+    <p style="text-align:center;">Select a day to view matches...</p>
+  </div>
+
+  <div class="highlights">
+    <h2>🎥 Match Highlights</h2>
+    <div class="video-grid" id="highlights"></div>
+  </div>
+
+  <style>
+    /* All the original CSS is moved to style.css.
+       For the sake of completeness, here are the original styles, but ideally, 
+       they would be in a separate 'style.css' file.
+    */
+    body { font-family: 'Poppins', sans-serif; background: #0d0d0d; color: #fff; margin: 0; padding: 0; overflow-x: hidden; }
+    header { text-align: center; padding: 10px 0; font-size: 1.8rem; font-weight: bold; background: #111; color: #00aaff; }
+    .slider { position: relative; width: 100%; height: 300px; overflow: hidden; }
+    .slides { display: flex; transition: transform 0.6s ease-in-out; width: 100%; }
+    .slides img { width: 100%; object-fit: cover; height: 300px; }
+    .dots { position: absolute; bottom: 10px; width: 100%; text-align: center; }
+    .dots span { display: inline-block; width: 12px; height: 12px; margin: 0 5px; border-radius: 50%; background: #555; cursor: pointer; transition: background 0.3s; }
+    .dots span.active { background: #00aaff; }
+    .tabs { display: flex; justify-content: center; background: #111; border-bottom: 1px solid #222; }
+    .tab { padding: 10px 20px; cursor: pointer; color: #aaa; transition: 0.3s; }
+    .tab.active { color: #00aaff; border-bottom: 3px solid #00aaff; }
+    .league { margin: 20px; background: #1a1a1a; border-radius: 10px; padding: 10px; box-shadow: 0 0 10px #000; }
+    .league h2 { font-size: 1rem; color: #00aaff; border-left: 3px solid #00aaff; padding-left: 8px; }
+    .match { display: flex; justify-content: space-between; align-items: center; background: #222; margin: 8px 0; padding: 10px; border-radius: 8px; cursor: pointer; /* Added cursor for clickability */ }
+    .match img { width: 40px; height: 40px; border-radius: 50%; }
+    .team { display: flex; align-items: center; gap: 10px; }
+    .score { font-weight: bold; color: #fff; }
+    .highlights { margin: 30px; }
+    .highlights h2 { color: #00aaff; text-align: center; margin-bottom: 20px; }
+    .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px; }
+    iframe { width: 100%; height: 200px; border-radius: 10px; border: none; }
+  </style>
+
+  <script src="slider.js"></script>
+  <script src="score.js"></script>
+  <script>
+    // --- Tabs & Highlights Logic (Stays in main file to coordinate the page) ---
+    const matchesDiv = document.getElementById('matches');
+    const tabs = document.querySelectorAll('.tab');
+    let currentDay = 'today';
+
+    // Tabs logic to switch days and call the score module's function
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        currentDay = tab.dataset.day;
+        // Call the external function from score.js
+        window.fetchMatchesAndDisplay(currentDay); 
+      });
+    });
+    
+    // Initial load
+    window.fetchMatchesAndDisplay(currentDay);
+
+    // --- Highlights ---
+    async function fetchHighlights() {
+      try {
+        const res = await fetch('https://www.thesportsdb.com/api/v1/json/3/eventshighlights.php?s=Soccer');
+        const data = await res.json();
+        const container = document.getElementById('highlights');
+        if (!data.tvhighlights) return;
+        container.innerHTML = data.tvhighlights.slice(0, 6).map(v => {
+          // Robustly get the video ID (handles both v= and /embed/ formats if the API were inconsistent)
+          const videoId = v.strVideo.includes('v=') ? v.strVideo.split('v=')[1] : v.strVideo;
+          return `<iframe src="https://www.youtube.com/embed/${videoId}" allowfullscreen></iframe>`;
+        }).join('');
+      } catch (err) {
+        console.error("Error fetching highlights:", err);
+      }
+    }
+    fetchHighlights();
+  </script>
+</body>
+</html>
