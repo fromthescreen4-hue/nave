@@ -63,21 +63,23 @@
     <div id="sidebar-overlay" onclick="closeSidebar()" class="hidden fixed inset-0 bg-black bg-opacity-50 z-40"></div>
 
     <!-- Header -->
-    <header class="sticky top-0 bg-primary-dark shadow-lg z-10 border-b border-gray-700 p-4 flex justify-between items-center">
-        
-        <!-- Hamburger Menu -->
-        <button onclick="openSidebar()" aria-label="Open Menu" class="text-text-light hover:text-white transition p-1">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-            </svg>
-        </button>
+   <header class="sticky top-0 bg-primary-dark shadow-lg z-10 border-b border-gray-700 p-4 flex flex-col sm:flex-row justify-center sm:justify-between items-center space-y-2 sm:space-y-0">
 
-        <!-- Logo -->
-        <div class="flex items-center space-x-2">
-            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiBmaWxsPSJub25lIj4KICAgIDxjaXJjbGUgY3g9IjUwIiBjeT0iNTAiIHI9IjQ4IiBmaWxsPSIjNDMzOENBIi8+CiAgICA8dGV4dCB4PSI1MCIgeT0iNjgiIGZvbnQtZmFtaWx5PSJWZXJkYW5hLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjU1IiBmb250LXdlaWdodD0iOTAwIiBmb250LWZhbWlseT0iSW50ZXIiIGZpbGw9IiNFN0U1RUIiIgdGV4dC1hbmNob3I9Im1pZGRsZSI+TlM8L3RleHQ+CiAgICA8cGF0aCBkPSJNNzAgNjUgQSA0MCA0MCAwIDAgMCAzMCA0MCIgc3Ryb2tlPSIjMzRkMzlGIiBzdHJva2Utd2lkdGg9IjQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgZmlsbD0ibm9uZSIvPgogPC9zdmc+" alt="Nave Sports Logo" class="h-10 w-10 rounded-full"> 
-            <h1 class="text-2xl font-extrabold tracking-widest text-white">NAVE SPORTS</h1>
-        </div>
-    </header>
+    <!-- Hamburger Menu -->
+    <button onclick="openSidebar()" aria-label="Open Menu" class="text-text-light hover:text-white transition p-1 absolute left-4 sm:static">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+        </svg>
+    </button>
+
+    <!-- Nave Sports Logo Centered -->
+    <div class="flex items-center space-x-2 justify-center">
+        <img src="images/logo.svg" alt="Nave Sports Logo" class="h-10 w-10 rounded-full">
+        <h1 class="text-2xl font-extrabold tracking-widest text-white text-center">NAVE SPORTS</h1>
+    </div>
+
+</header>
+
 
     <!-- Date & Filter Bar -->
     <div class="p-4 border-b border-gray-800">
