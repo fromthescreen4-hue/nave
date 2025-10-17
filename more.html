@@ -1,4 +1,35 @@
-<h1 class="text-xl font-bold text-center flex-1">✨ More Features</h1>
-...
-<h2 class="text-2xl font-bold mb-4">Extra Features Coming Soon</h2>
-<p>More page space for future tools, links, and sections.</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>More Features — Nave Sports</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body class="bg-primary-dark text-text-light min-h-screen">
+  <header class="sticky top-0 z-40 bg-primary-dark border-b border-gray-700 p-3">
+    <div class="max-w-5xl mx-auto flex items-center justify-between">
+      <button onclick="openSidebar()" class="p-2 rounded-md text-text-light hover:bg-gray-800 transition">☰</button>
+      <div class="flex-1 flex items-center justify-center">
+        <img src="images/logo.svg" alt="logo" class="h-10 w-10 rounded-full mr-2"/>
+        <h1 class="text-2xl font-extrabold">NAVE SPORTS</h1>
+      </div>
+      <div class="w-10"></div>
+    </div>
+  </header>
+
+  <main class="max-w-5xl mx-auto p-6">
+    <h2 class="text-2xl font-bold mb-4">More Features</h2>
+    <p class="text-gray-300">Space for additional tools, links and features.</p>
+  </main>
+
+  <aside id="sidebar" class="fixed inset-y-0 left-0 w-64 transform -translate-x-full bg-primary-dark z-50 shadow-2xl transition-transform"></aside>
+  <div id="sidebar-overlay" class="fixed inset-0 bg-black bg-opacity-50 hidden z-40" onclick="closeSidebar()"></div>
+
+  <script>
+    function openSidebar(){ document.getElementById('sidebar').classList.remove('-translate-x-full'); document.getElementById('sidebar-overlay').classList.remove('hidden'); }
+    function closeSidebar(){ document.getElementById('sidebar').classList.add('-translate-x-full'); document.getElementById('sidebar-overlay').classList.add('hidden'); }
+  </script>
+</body>
+</html>
