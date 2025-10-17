@@ -1,0 +1,50 @@
+/* Custom scrollbar styling for dark mode */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #111827;
+}
+::-webkit-scrollbar-thumb {
+    background: #4b5563;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #6b7280;
+}
+
+/* Default font */
+body {
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Collapsible content animation */
+.collapsible-content {
+    transition: all 0.3s ease-in-out;
+    max-height: 0;
+    overflow: hidden;
+}
+.collapsible-content.is-expanded {
+    max-height: 500px;
+}
+
+/* Active/inactive filter buttons */
+.filter-btn-active {
+    background-color: #ef4444;
+    color: white;
+}
+.filter-btn-inactive {
+    background-color: #374151;
+    color: #e5e7eb;
+}
+
+/* Sidebar animation */
+.sidebar {
+    transition: transform 0.3s ease-in-out;
+    transform: translateX(-100%);
+}
+.sidebar.open {
+    transform: translateX(0);
+}

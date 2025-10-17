@@ -4,79 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nave Sports Hub - Live & Scores</title>
-    <!-- Load Tailwind CSS for styling -->
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        /* Custom scrollbar styling for a cleaner dark look */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #111827; /* Dark track */
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #4b5563; /* Gray thumb */
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #6b7280;
-        }
-
-        /* Set the Inter font as default */
-        body {
-            font-family: 'Inter', sans-serif;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-        
-        /* Basic animation for collapse/expand */
-        .collapsible-content {
-            transition: all 0.3s ease-in-out;
-            max-height: 0;
-            overflow: hidden;
-        }
-
-        .collapsible-content.is-expanded {
-            max-height: 500px; /* Large enough value to accommodate content */
-        }
-        /* Added class for smooth icon transition */
-        .icon-toggle {
-            transition: opacity 0.5s ease-in-out;
-        }
-        .hidden {
-            display: none;
-        }
-        /* Style for the active filter button */
-        .filter-btn-active {
-            background-color: #ef4444; /* accent-red */
-            color: white;
-        }
-        /* Style for inactive filter buttons */
-        .filter-btn-inactive {
-            background-color: #374151; /* gray-700 */
-            color: #e5e7eb; /* text-light */
-        }
-        
-        /* Sidebar styles */
-        .sidebar {
-            transition: transform 0.3s ease-in-out;
-            transform: translateX(-100%);
-        }
-        .sidebar.open {
-            transform: translateX(0);
-        }
-    </style>
-    <!-- Configure Tailwind for Dark Mode -->
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Tailwind Dark Mode Config -->
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        'primary-dark': '#1e1e1e', /* Main background */
-                        'card-dark': '#2a2a2a',    /* Card/section background */
-                        'text-light': '#e5e7eb',   /* Light text color */
-                        'accent-green': '#34d399', /* Green highlights */
-                        'accent-red': '#ef4444',   /* Red/live highlights */
+                        'primary-dark': '#1e1e1e',
+                        'card-dark': '#2a2a2a',
+                        'text-light': '#e5e7eb',
+                        'accent-green': '#34d399',
+                        'accent-red': '#ef4444',
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
@@ -115,7 +60,6 @@
         </nav>
     </div>
     
-    <!-- Overlay for closing sidebar -->
     <div id="sidebar-overlay" onclick="closeSidebar()" class="hidden fixed inset-0 bg-black bg-opacity-50 z-40"></div>
 
     <!-- Header -->
@@ -128,37 +72,15 @@
             </svg>
         </button>
 
-        <!-- Nave Sports Logo -->
+        <!-- Logo -->
         <div class="flex items-center space-x-2">
-            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiBmaWxsPSJub25lIj4KICAgIDxjaXJjbGUgY3g9IjUwIiBjeT0iNTAiIHI9IjQ4IiBmaWxsPSIjNDMzOENBIi8+CiAgICA8dGV4dCB4PSI1MCIgeT0iNjgiIGZvbnQtZmFtaWx5PSJWZXJkYW5hLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjU1IiBmb250LXdlaWdodD0iOTAwIiBmb250LWZhbWlseT0iSW50ZXIiIGZpbGw9IiNFN0U1RUIiIgdGV4dC1hbmNob3I9Im1pZGRsZSI+TlM8L3RleHQ+CiAgICA8cGF0aCBkPSJNNzAgNjUgQSA0MCA0MCAwIDAgMCAzMCA0MCIgc3Ryb2tlPSIjMzRkMzlGIiBzdHJva2Utd2lkdGg9IjQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgZmlsbD0ibm9uZSIvPgogPC9zdmc+" alt="Nave Sports Logo (Transparent)" class="h-10 w-10 rounded-full"> 
+            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiBmaWxsPSJub25lIj4KICAgIDxjaXJjbGUgY3g9IjUwIiBjeT0iNTAiIHI9IjQ4IiBmaWxsPSIjNDMzOENBIi8+CiAgICA8dGV4dCB4PSI1MCIgeT0iNjgiIGZvbnQtZmFtaWx5PSJWZXJkYW5hLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjU1IiBmb250LXdlaWdodD0iOTAwIiBmb250LWZhbWlseT0iSW50ZXIiIGZpbGw9IiNFN0U1RUIiIgdGV4dC1hbmNob3I9Im1pZGRsZSI+TlM8L3RleHQ+CiAgICA8cGF0aCBkPSJNNzAgNjUgQSA0MCA0MCAwIDAgMCAzMCA0MCIgc3Ryb2tlPSIjMzRkMzlGIiBzdHJva2Utd2lkdGg9IjQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgZmlsbD0ibm9uZSIvPgogPC9zdmc+" alt="Nave Sports Logo" class="h-10 w-10 rounded-full"> 
             <h1 class="text-2xl font-extrabold tracking-widest text-white">NAVE SPORTS</h1>
-        </div>
-        
-        <!-- Icon Area: Football/Cricket Toggler -->
-        <div class="flex space-x-4">
-            <!-- Football Icon (Default Visible) -->
-            <div id="football-icon" class="text-white w-6 h-6 cursor-pointer icon-toggle" title="Football Highlights">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-full h-full">
-                    <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm2.235 15.545a1.125 1.125 0 00.916 1.83C17.65 19.38 20 16.037 20 12c0-2.427-1.074-4.6-2.775-6.075a1.125 1.125 0 00-1.637 1.348 7.502 7.502 0 011.69 4.727 7.5 7.5 0 01-4.735 6.945zM9.5 5.5a1 1 0 100 2 1 1 0 000-2zm4.5 9.5a1 1 0 100 2 1 1 0 000-2zM9 13.5a1 1 0 100 2 1 1 0 000-2zm6-6a1 1 0 100 2 1 1 0 000-2zM7.5 10.5a1 1 0 100 2 1 1 0 000-2zM5.992 4.41C4.484 5.922 3 8.79 3 12c0 1.956.627 3.754 1.708 5.25a1.125 1.125 0 001.345-1.748A7.504 7.504 0 014.5 12c0-2.272.783-4.35 2.1-5.91a1.125 1.125 0 00-1.608-1.68z" />
-                </svg>
-            </div>
-
-            <!-- Cricket Icon (Default Hidden) -->
-            <div id="cricket-icon" class="text-accent-green w-6 h-6 cursor-pointer icon-toggle hidden" title="Cricket Highlights">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-full h-full">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 2a10 10 0 100 20 10 10 0 000-20z" fill="#34D399" stroke="none"/>
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 12l-6 6M10 12l-6-6M10 12h10M12 2v20" stroke="#1F2937" stroke-width="2" fill="none"/>
-                    <path d="M12 2c-5.523 0-10 4.477-10 10s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zM12 2c5.523 0 10 4.477 10 10" stroke="#34D399" stroke-width="2" fill="none"/>
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12h5m-5 0V7.5a1.5 1.5 0 00-3 0V12" stroke="#1F2937" stroke-width="2" fill="none"/>
-                    <path d="M15 12l-1 5" stroke="#1F2937" stroke-width="2" fill="none"/>
-                </svg>
-            </div>
         </div>
     </header>
 
-    <!-- Date and Filter Bar -->
+    <!-- Date & Filter Bar -->
     <div class="p-4 border-b border-gray-800">
-        <!-- Date Navigation -->
         <div class="flex items-center justify-between mb-4">
             <button id="prev-day-btn" aria-label="Previous Day" class="text-text-light hover:text-white p-2 rounded-full bg-gray-700/50 disabled:opacity-50 transition">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5">
@@ -173,48 +95,34 @@
             </button>
         </div>
 
-        <!-- Filter Chips (Live/Highlights/News) -->
         <div class="flex flex-col items-center space-y-4">
             <div class="flex space-x-2 overflow-x-auto pb-2 scrollbar-hide">
-                <button id="filter-live" data-view="live" onclick="window.switchView('live')" class="filter-btn flex-shrink-0 px-4 py-2 text-sm font-medium rounded-full transition hover:opacity-80 filter-btn-active">Live & Ongoing</button>
-                
-                <button id="filter-highlights" data-view="highlights" onclick="window.switchView('highlights')" class="filter-btn flex-shrink-0 px-4 py-2 text-sm font-medium rounded-full transition hover:opacity-80 filter-btn-inactive">Highlights</button>
-
-                <!-- News Chip (Link to external blog.html page) - THIRD ITEM -->
+                <button id="filter-live" data-view="live" onclick="switchView('live')" class="filter-btn flex-shrink-0 px-4 py-2 text-sm font-medium rounded-full transition hover:opacity-80 filter-btn-active">Live & Ongoing</button>
+                <button id="filter-highlights" data-view="highlights" onclick="switchView('highlights')" class="filter-btn flex-shrink-0 px-4 py-2 text-sm font-medium rounded-full transition hover:opacity-80 filter-btn-inactive">Highlights</button>
                 <a href="blog.html" class="flex-shrink-0 px-4 py-2 text-sm font-medium rounded-full transition hover:opacity-80 filter-btn-inactive flex items-center justify-center">News</a>
             </div>
-            
-            <!-- Hide/Show All Toggle -->
-            <button id="toggleAllBtn" class="px-6 py-1 text-xs font-bold rounded-full bg-card-dark text-text-light hover:bg-gray-700 transition shadow-lg">
-                Hide all
-            </button>
+            <button id="toggleAllBtn" class="px-6 py-1 text-xs font-bold rounded-full bg-card-dark text-text-light hover:bg-gray-700 transition shadow-lg">Hide all</button>
         </div>
     </div>
 
-    <!-- Main Content Area -->
+    <!-- Main Content -->
     <main class="p-4">
-        
-        <!-- Live & Ongoing Content (Default View) -->
         <div id="live-content" class="view-content space-y-4">
             <div class="text-center text-sm font-medium text-gray-400 mb-4">
                 This is a static content area for live fixtures.
             </div>
-
-            <!-- League Section 1 (Algeria) -->
+            <!-- Example League Section -->
             <section class="league-section rounded-xl bg-card-dark shadow-xl overflow-hidden">
-                <button onclick="window.toggleLeague(this)" class="w-full flex justify-between items-center p-4 cursor-pointer bg-gray-800 hover:bg-gray-700/70 transition rounded-t-xl">
+                <button onclick="toggleLeague(this)" class="w-full flex justify-between items-center p-4 cursor-pointer bg-gray-800 hover:bg-gray-700/70 transition rounded-t-xl">
                     <div class="flex items-center space-x-2">
                         <span class="text-xl">⚽</span>
                         <h2 class="text-base font-semibold text-text-light">Algeria - Ligue 1 (LIVE)</h2>
                     </div>
-                    
                     <svg class="w-5 h-5 text-gray-400 transform transition-transform duration-300" data-arrow-icon fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
                     </svg>
                 </button>
-
                 <div class="collapsible-content is-expanded">
-                    
                     <div class="match-row p-4 border-b border-gray-700 flex items-center justify-between transition">
                         <div class="flex items-center space-x-2">
                             <span class="text-xs font-semibold text-accent-red px-2 py-0.5 rounded-full border border-accent-red">LIVE</span>
@@ -226,318 +134,23 @@
                             <span class="text-xl">🛡️</span> 
                         </div>
                     </div>
-                    
-                    <div class="match-row p-4 flex items-center justify-between transition">
-                        <div class="flex items-center space-x-2">
-                            <span class="text-xl">🌿</span> 
-                            <span class="text-sm font-medium text-text-light">ES Mostaganem</span>
-                        </div>
-                        <div class="text-sm font-bold text-accent-green">10:30 PM</div>
-                        <div class="flex items-center space-x-2">
-                            <span class="text-sm font-medium text-text-light">ASO Chlef</span>
-                            <span class="text-xl">🔴</span> 
-                        </div>
-                    </div>
-
-                    <!-- Watch Here Button (Centered) -->
-                    <div class="p-4 flex justify-center bg-gray-800/50">
-                        <a href="" class="flex items-center px-3 py-1 text-sm font-semibold rounded-full bg-accent-green text-white hover:bg-green-600 transition">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4 mr-1">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
-                            </svg>
-                            Watch Here
-                        </a>
-                    </div>
                 </div>
             </section>
-            <!-- End League Section 1 (Algeria) -->
-
-            <!-- League Section 2 (Premier League Sample) -->
-            <section class="league-section rounded-xl bg-card-dark shadow-xl overflow-hidden">
-                <button onclick="window.toggleLeague(this)" class="w-full flex justify-between items-center p-4 cursor-pointer bg-gray-800 hover:bg-gray-700/70 transition rounded-t-xl">
-                    <div class="flex items-center space-x-2">
-                        <span class="text-xl">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span>
-                        <h2 class="text-base font-semibold text-text-light">England - Premier League</h2>
-                    </div>
-                    
-                    <svg class="w-5 h-5 text-gray-400 transform transition-transform duration-300" data-arrow-icon fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
-                    </svg>
-                </button>
-
-                <div class="collapsible-content is-expanded">
-                    
-                    <div class="match-row p-4 flex items-center justify-between transition border-b border-gray-700">
-                        <div class="flex items-center space-x-2">
-                            <span class="text-xl">🔴</span>
-                            <span class="text-sm font-medium text-text-light">Manchester United</span>
-                        </div>
-                        <div class="text-sm font-bold text-accent-green">TOMORROW</div>
-                        <div class="flex items-center space-x-2">
-                            <span class="text-sm font-medium text-text-light">Chelsea FC</span>
-                            <span class="text-xl">🔵</span>
-                        </div>
-                    </div>
-
-                    <!-- Watch Here Button (Centered) -->
-                    <div class="p-4 flex justify-center bg-gray-800/50">
-                        <a href="" class="flex items-center px-3 py-1 text-sm font-semibold rounded-full bg-accent-green text-white hover:bg-green-600 transition">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4 mr-1">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
-                            </svg>
-                            Watch Here
-                        </a>
-                    </div>
-                </div>
-            </section>
-            <!-- End League Section 2 -->
-            
-            <div class="text-center py-10">
-                <p class="text-lg font-semibold text-gray-400">No more matches scheduled.</p>
-                <p class="text-sm text-gray-500">Check back tomorrow for the next fixture list!</p>
-            </div>
-            
         </div>
-        
-        <!-- Highlights Content (Hidden by Default) -->
+
         <div id="highlights-content" class="view-content hidden space-y-4">
             <h2 class="text-2xl font-bold text-white mb-4">Top Sports Highlights</h2>
-            
-            <!-- Highlight Card 1 -->
+            <!-- Highlight Card Example -->
             <div class="bg-card-dark rounded-xl overflow-hidden shadow-xl p-4">
                 <img src="https://placehold.co/400x200/2A2A2A/E5E7EB?text=Football+Goal" alt="Football Highlight" class="w-full h-auto rounded-lg mb-3">
                 <h3 class="text-lg font-semibold text-text-light mb-2">Unbelievable Bicycle Kick Seals Derby Win!</h3>
-                <p class="text-sm text-gray-400 mb-3">A last-minute stunner that will be replayed for years.</p>
                 <div class="flex justify-center items-center">
-                    <a href="" class="px-3 py-1 text-sm font-semibold rounded-full bg-accent-green text-white hover:bg-green-600 transition">
-                        Watch Now
-                    </a>
+                    <a href="" class="px-3 py-1 text-sm font-semibold rounded-full bg-accent-green text-white hover:bg-green-600 transition">Watch Now</a>
                 </div>
             </div>
-
-            <!-- Highlight Card 2 -->
-            <div class="bg-card-dark rounded-xl overflow-hidden shadow-xl p-4">
-                <img src="https://placehold.co/400x200/2A2A2A/E5E7EB?text=Cricket+Wickets" alt="Cricket Highlight" class="w-full h-auto rounded-lg mb-3">
-                <h3 class="text-lg font-semibold text-text-light mb-2">Five Wicket Haul Decimates Opposition Batting Lineup.</h3>
-                <p class="text-sm text-gray-400 mb-3">The young spinner delivered a masterclass in control and variation.</p>
-                <div class="flex justify-center items-center">
-                    <a href="" class="px-3 py-1 text-sm font-semibold rounded-full bg-accent-green text-white hover:bg-green-600 transition">
-                        Watch Now
-                    </a>
-                </div>
-            </div>
-            
         </div>
-
     </main>
 
-    <script>
-        // --- Global State ---
-        let currentDate = new Date(); // Tracks the currently displayed date
-        const dateLabel = document.getElementById('date-label');
-        const prevBtn = document.getElementById('prev-day-btn');
-        const nextBtn = document.getElementById('next-day-btn');
-        let currentView = 'live';
-        let iconInterval;
-
-        // --- Utility Functions ---
-
-        /**
-         * Formats the date string (e.g., "Today", "Tomorrow", "Yesterday").
-         * We restrict it to just these three labels.
-         */
-        function formatDateLabel(date) {
-            const today = new Date();
-            const diffDays = Math.round((date.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
-
-            if (diffDays === 0) return 'Today';
-            if (diffDays === -1) return 'Yesterday';
-            if (diffDays === 1) return 'Tomorrow';
-            
-            // Should not happen due to button disabling, but defaults to 'Today'
-            return 'Today'; 
-        }
-
-        /**
-         * Updates the date label and button states based on the current date.
-         */
-        function updateDateUI() {
-            const label = formatDateLabel(currentDate);
-            dateLabel.textContent = label;
-
-            // Disable buttons if we hit the limits (Yesterday or Tomorrow)
-            prevBtn.disabled = label === 'Yesterday';
-            nextBtn.disabled = label === 'Tomorrow';
-            
-            console.log(`Date changed to: ${label}`);
-            
-            // Simulate reloading of collapsible content
-            resetCollapsibleSections();
-        }
-
-        /**
-         * Resets all league sections to be expanded.
-         */
-        function resetCollapsibleSections() {
-            const sections = document.querySelectorAll('.collapsible-content');
-            sections.forEach(content => {
-                content.classList.add('is-expanded');
-                const button = content.previousElementSibling;
-                const arrowIcon = button ? button.querySelector('[data-arrow-icon]') : null;
-                if (arrowIcon) {
-                     arrowIcon.style.transform = 'rotate(0deg)';
-                }
-            });
-            const toggleAllBtn = document.getElementById('toggleAllBtn');
-            if(toggleAllBtn) {
-                toggleAllBtn.textContent = 'Hide all';
-            }
-        }
-        
-        // --- Public/Global Functions (Called by HTML onclick) ---
-
-        /**
-         * Toggles the visibility of a single league section.
-         */
-        window.toggleLeague = function(button) {
-            const content = button.nextElementSibling;
-            const arrowIcon = button.querySelector('[data-arrow-icon]');
-
-            if (content && content.classList.contains('collapsible-content')) {
-                const isExpanded = content.classList.toggle('is-expanded');
-                
-                if (arrowIcon) {
-                    arrowIcon.style.transform = isExpanded ? 'rotate(0deg)' : 'rotate(180deg)';
-                }
-            }
-        }
-        
-        /**
-         * Toggles the visibility of all league sections.
-         */
-        window.toggleAllSections = function() {
-            const sections = document.querySelectorAll('.collapsible-content');
-            const toggleAllBtn = document.getElementById('toggleAllBtn');
-            let allExpanded = sections[0] ? sections[0].classList.contains('is-expanded') : true;
-            let newState = !allExpanded; // If all expanded, new state is collapsed
-
-            sections.forEach(content => {
-                const button = content.previousElementSibling;
-                const arrowIcon = button ? button.querySelector('[data-arrow-icon]') : null;
-
-                if (newState) {
-                    content.classList.add('is-expanded');
-                    if (arrowIcon) {
-                         arrowIcon.style.transform = 'rotate(0deg)';
-                    }
-                } else {
-                    content.classList.remove('is-expanded');
-                    if (arrowIcon) {
-                         arrowIcon.style.transform = 'rotate(180deg)';
-                    }
-                }
-            });
-
-            toggleAllBtn.textContent = newState ? 'Show all' : 'Hide all';
-        }
-
-        /**
-         * Switches the main content view (Live vs Highlights).
-         */
-        window.switchView = function(viewName) {
-            currentView = viewName;
-            
-            document.querySelectorAll('.view-content').forEach(el => el.classList.add('hidden'));
-
-            const targetContent = document.getElementById(`${viewName}-content`);
-            if (targetContent) {
-                targetContent.classList.remove('hidden');
-            }
-
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                if (btn.dataset.view === viewName) {
-                    btn.classList.remove('filter-btn-inactive');
-                    btn.classList.add('filter-btn-active');
-                    btn.style.backgroundColor = (viewName === 'live') ? '#ef4444' : '#34d399';
-                } else {
-                    btn.classList.remove('filter-btn-active');
-                    btn.classList.add('filter-btn-inactive');
-                    btn.style.backgroundColor = '#374151';
-                }
-            });
-            
-            const toggleAllBtn = document.getElementById('toggleAllBtn');
-            if (toggleAllBtn) {
-                toggleAllBtn.classList.toggle('hidden', viewName !== 'live');
-            }
-        }
-        
-        // --- Sidebar Functions ---
-        window.openSidebar = function() {
-            document.getElementById('sidebar').classList.add('open');
-            document.getElementById('sidebar-overlay').classList.remove('hidden');
-        }
-
-        window.closeSidebar = function() {
-            document.getElementById('sidebar').classList.remove('open');
-            document.getElementById('sidebar-overlay').classList.add('hidden');
-        }
-
-        // --- Toggling Icons (Branding) ---
-        function toggleIcons() {
-            const footballIcon = document.getElementById('football-icon');
-            const cricketIcon = document.getElementById('cricket-icon');
-
-            if (footballIcon && cricketIcon) {
-                if (!footballIcon.classList.contains('hidden')) {
-                    footballIcon.classList.add('hidden');
-                    cricketIcon.classList.remove('hidden');
-                } else {
-                    footballIcon.classList.remove('hidden');
-                    cricketIcon.classList.add('hidden');
-                }
-            }
-        }
-        
-        // --- Initialization on Load ---
-        window.onload = function() {
-            // 1. Initialize Date Navigation
-            updateDateUI(); // Set initial state (Today)
-
-            prevBtn.addEventListener('click', () => {
-                const newDate = new Date(currentDate);
-                newDate.setDate(newDate.getDate() - 1);
-                
-                // Only allow going back to yesterday
-                const yesterday = new Date();
-                yesterday.setDate(yesterday.getDate() - 1); 
-                if (newDate >= yesterday) {
-                    currentDate.setDate(currentDate.getDate() - 1);
-                    updateDateUI();
-                }
-            });
-
-            nextBtn.addEventListener('click', () => {
-                const newDate = new Date(currentDate);
-                newDate.setDate(newDate.getDate() + 1);
-                
-                // Only allow going forward to tomorrow
-                const tomorrow = new Date();
-                tomorrow.setDate(tomorrow.getDate() + 1); 
-                if (newDate <= tomorrow) {
-                    currentDate.setDate(currentDate.getDate() + 1);
-                    updateDateUI();
-                }
-            });
-            
-            // 2. Start Icon Toggler (4-second interval)
-            iconInterval = setInterval(toggleIcons, 4000);
-            
-            // 3. Set initial state of "Hide all" button listener
-            document.getElementById('toggleAllBtn').addEventListener('click', window.toggleAllSections);
-        };
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
