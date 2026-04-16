@@ -1,10 +1,2 @@
-#EXTM3U
-
-#EXTINF:-1 tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgn77IO6WSYH_gwrDwf3UhbdKwLi1OXYM5UWGbbuzKRTwmuP5OzUWIZxMT0N8UZ2blaPBK98BxzhbvVGQNKrO5oeD-KaJiGw1q8O_k8Q&s",Video Stream 1
-https://hub.pizzacdn.buzz/a6bd0671b0b49c802539e1e729e99d57?token=1772817824
-
-#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/en/thumb/b/ba/Marty_Supreme_poster.jpg/250px-Marty_Supreme_poster.jpg",Marty Supreme
-https://pub-fa05911f55ab4546b822ec40d68ccf99.r2.dev/995c72037ba6f559debe996b87b61dc3?token=1772818577
-
 #EXTINF:-1 tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-LVFv3GyETluXgMFp7RTvH0y6q-QOJ7qMBKUS3uHsMqIhMKgWcM1OVIIoOa54KJUPdanx96rWThCWUkiLUuBhQ-nCzTz7pzp_fwlDqg&s=10",yout
 http://192.168.1.8:11470/0aae238ba9f117d77b1f1c2c49a632a44cbcc604/2
